@@ -9,3 +9,4 @@ As well as any documentation involving VPNs.
 - Wireguard
 - OpenVPN
 - Linux
+- PiVPN
