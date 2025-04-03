@@ -11,6 +11,4 @@ As well as any documentation involving VPNs.
 - Linux
 - PiVPN
 
-![alt text](http://url/to/img.png)
-
 ![test](https://imgur.com/y9EGhuJ.png)
