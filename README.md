@@ -1,8 +1,8 @@
-# 490-VPN-Capstone-Project
+# 490-VPN-Capstone-Project-Instructions
 
 This Repo is to show the installation process I followed to make my own Portable VPN and what to do if you have to work with a Apple Router.
 
-## Technologies
+## Technologies Used
 
 - Raspberry Pi 5
 - Wireguard
