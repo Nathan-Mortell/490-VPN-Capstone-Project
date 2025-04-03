@@ -1,7 +1,6 @@
 # 490-VPN-Capstone-Project
 
-This Repo is for any code that is written for the Capstone Project.
-As well as any documentation involving VPNs.
+This Repo is to show the installation process I followed to make my own Portable VPN and what to do if you have to work with a Apple Router.
 
 ## Technologies
 
@@ -10,5 +9,7 @@ As well as any documentation involving VPNs.
 - OpenVPN
 - Linux
 - PiVPN
+
+## Instructional Guide
 
 ![test](https://imgur.com/y9EGhuJ.png)
