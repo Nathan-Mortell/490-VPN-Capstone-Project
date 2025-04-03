@@ -13,4 +13,4 @@ As well as any documentation involving VPNs.
 
 ![alt text](http://url/to/img.png)
 
-![test](https://imgur.com/y9EGhuJ/to/img.png)
+![test](https://imgur.com/y9EGhuJ.png)
