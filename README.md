@@ -68,7 +68,11 @@ When you select WireGuard, you'll be shown the default WireGuard port, make sure
 
 ##
 
-After that, you'll be asked what DNS provider will the VPN be using. For this I selected OpenDNS since it's a free, trusted DNS provider, but you can select any of the other options if you already have a preferred provider. Then you'll be asked if clients will be using a public IP or DNS name to connect to your server. Since we already made a static IP address for our device, we'll be selecting the top option, but if your IP address was dynamic, then you would use the DNS entry and set up a dynamic DNS. You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this the VPN server keys will be generated and after that your Pi will restart multiple times.
+After that, you'll be asked what DNS provider will the VPN be using. For this I selected OpenDNS since it's a free, trusted DNS provider, but you can select any of the other options if you already have a preferred provider. Then you'll be asked if clients will be using a public IP or DNS name to connect to your server. Since we already made a static IP address for our device, we'll be selecting the top option, but if your IP address was dynamic, then you would use the DNS entry and set up a dynamic DNS. 
+
+![test](https://imgur.com/6eJHlR8.png)
+
+You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this the VPN server keys will be generated and after that your Pi will restart multiple times.
 
 
 
