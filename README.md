@@ -30,6 +30,7 @@ This is when the process can get tricky, and you'll need to understand some netw
 Once you get your Macbook open the Finder App and type in AirPort Utility. You then see your Apple router and its connection to the internet, click on the router and then edit at the lower right. After that go to the network tab, then under DHCP reservations select the + icon. From there you'll be prompted to give a description, reserve address, Mac, and IPv4 address. For the description name it something along the lines of Pi Reservation, for reserver address to MAC Address, then for the Mac address we'll need to go back to your Pi and get both its MAC and IPv4. To do this type in "ifconfig" and from there we need the inet for the IPv4 and the ether for the MAC address, mine is shown below. Once you get yours, enter them into the reservation and click save, then update. You'll be prompted to restard your router and it'll take around 7 minutes to restart and enable the reservation. Now you have a dedicated DHCP reservation for your Pi.
 
 ![test](https://imgur.com/Kc8cijS.png)
+##
 
 The next step is to now begin installing PiVPN. Open the CMD terminal icon again and type "curl -L https://install.pivpn.io | bash." This is taken from the PiVPN website and will begin the installation procedure and open the installation wizard shown below. 
 
@@ -63,7 +64,6 @@ These built-in components and more are why WireGuard is preferred over other pro
 When you select WireGuard, you'll be shown the default WireGuard port, make sure it says its UDP number "51820", if it doesn't, change it to it. This number will be important later on when giving the VPN proper internet access.
 
 ![test](https://imgur.com/V3V1f1y.png)
-
 ##
 
 After that, you'll be asked what DNS provider will the VPN be using. For this I selected OpenDNS since it's a free, trusted DNS provider, but you can select any of the other options if you already have a preferred provider. Then you'll be asked if clients will be using a public IP or DNS name to connect to your server. Since we already made a static IP address for our device, we'll be selecting the top option, but if your IP address was dynamic, then you would use the DNS entry and set up a dynamic DNS. You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this the VPN server keys will be generated and after that your Pi will restart multiple times.
