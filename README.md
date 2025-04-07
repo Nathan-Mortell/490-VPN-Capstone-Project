@@ -1,6 +1,6 @@
 # 490-VPN-Capstone-Project-Instructions
 
-This Repo is to show the installation process I did to make my own Portable VPN, what to do if you have to work with an Apple Router, and an optional section on how to (maybe) install an Ad Blocker with the VPN.
+This Repo is to show the installation process I did to turn my Raspberry Pi 5 into a Portable VPN, what to do if you have to work with an Apple Router, and an optional section on how to (maybe) install an Ad Blocker with the VPN.
 
 ## Technologies Used
 
