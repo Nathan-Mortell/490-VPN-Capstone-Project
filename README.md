@@ -39,18 +39,16 @@ When you get to the step where you are asked if you want to use a DHCP Reservati
 
 I'll be quickly going over WireGuard and why its as popular as it is. First, WireGuard has a simple network interface, it works by adding and removing routes with route(8) or ip-route(8) and works with all networking utilities. Specific aspects of the interface are configured using the wg(8) tool which acts as a tunnel interface. Wireguard provides an example of how it associates tunnel IP addresses with public keys and remote endpoints. When the interface sends a packet to a peer, it does the following:
 
-
-    This packet is meant for 192.168.30.8. Which peer is that? Let me look... Okay, it's for peer ABCDEFGH. (Or if it's not for any configured peer, drop the packet.)
-    Encrypt entire IP packet using peer ABCDEFGH's public key.
-    What is the remote endpoint of peer ABCDEFGH? Let me look... Okay, the endpoint is UDP port 53133 on host 216.58.211.110.
-    Send encrypted bytes from step 2 over the Internet to 216.58.211.110:53133 using UDP.
+1. This packet is meant for 192.168.30.8. Which peer is that? Let me look... Okay, it's for peer ABCDEFGH. (Or if it's not for any configured peer, drop the packet.)
+2. Encrypt entire IP packet using peer ABCDEFGH's public key.
+3. What is the remote endpoint of peer ABCDEFGH? Let me look... Okay, the endpoint is UDP port 53133 on host 216.58.211.110.
+4. Send encrypted bytes from step 2 over the Internet to 216.58.211.110:53133 using UDP.
 
 When the interface receives a packet, this happens:
 
-    I just got a packet from UDP port 7361 on host 98.139.183.24. Let's decrypt it!
-    It decrypted and authenticated properly for peer LMNOPQRS. Okay, let's remember that peer LMNOPQRS's most recent Internet endpoint is 98.139.183.24:7361 using UDP.
-    Once decrypted, the plain-text packet is from 192.168.43.89. Is peer LMNOPQRS allowed to be sending us packets as 192.168.43.89?
-    If so, accept the packet on the interface. If not, drop it.
-
+1. I just got a packet from UDP port 7361 on host 98.139.183.24. Let's decrypt it!
+2. It decrypted and authenticated properly for peer LMNOPQRS. Okay, let's remember that peer LMNOPQRS's most recent Internet endpoint is 98.139.183.24:7361 using UDP.
+3. Once decrypted, the plain-text packet is from 192.168.43.89. Is peer LMNOPQRS allowed to be sending us packets as 192.168.43.89?
+4. If so, accept the packet on the interface. If not, drop it.
 
 
