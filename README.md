@@ -64,7 +64,7 @@ These built-in components and more are why WireGuard is preferred over other pro
 
 When you select WireGuard, you'll be shown the default WireGuard port, make sure it says its UDP number "51820", if it doesn't, change it to it. This number will be important later on when giving the VPN proper internet access.
 
-![test](https://imgur.com/V3V1f1y.png)
+![test](https://imgur.com/6XWQwiw.png)
 
 ##
 
