@@ -37,7 +37,7 @@ When you get to the step where you are asked if you want to use a DHCP Reservati
 
 ![test](https://imgur.com/V3V1f1y.png)
 
-I'll be quickly going over WireGuard and why its as popular as it is. First, WireGuard has a simple network interface, it works by adding and removing routes with route(8) or ip-route(8) and works with all networking utilities. Specific aspects of the interface are configured using the wg(8) tool which acts as a tunnel interface. Wireguard provides an example of how it associates tunnel IP addresses with public keys and remote endpoints. When the interface sends a packet to a peer, it does the following:
+I'll be quickly going over WireGuard and why its as popular as it is. First, WireGuard has a simple network interface, it works by adding and removing routes with route(8) or ip-route(8) and works with all networking utilities. Specific aspects of the interface are configured using the wg(8) tool which acts as a tunnel interface. WireGuard provides an example of how it associates tunnel IP addresses with public keys and remote endpoints. When the interface sends a packet to a peer, it does the following:
 
 1. This packet is meant for 192.168.30.8. Which peer is that? Let me look... Okay, it's for peer ABCDEFGH. (Or if it's not for any configured peer, drop the packet.)
 2. Encrypt entire IP packet using peer ABCDEFGH's public key.
@@ -50,5 +50,16 @@ When the interface receives a packet, this happens:
 2. It decrypted and authenticated properly for peer LMNOPQRS. Okay, let's remember that peer LMNOPQRS's most recent Internet endpoint is 98.139.183.24:7361 using UDP.
 3. Once decrypted, the plain-text packet is from 192.168.43.89. Is peer LMNOPQRS allowed to be sending us packets as 192.168.43.89?
 4. If so, accept the packet on the interface. If not, drop it.
+
+The other aspect of WireGuard that makes it popular is the concept called Cryptokey Routing. This works by associating public keys with a list of tunnel IP addresses that are allowed inside the tunnel. Each network has a private key and a list of peers. Each peer has a public key. Public keys are used by peers to authenticate each other and can be passed around for use in configuration files by any out-of-band method. It's similar to how one might send their SSH public key to a friend for access to a shell server. In the server configuration, each peer (a client) will be able to send packets to the network interface with a source IP matching the corresponding list of allowed IPs. For example, when a packet is received by the server from peer gN65BkIK..., after being decrypted and authenticated, if its source IP is 10.10.10.230, then it's allowed onto the interface; otherwise, it's dropped.
+
+These built-in components and more are why WireGuard is preferred over other protocols like OpenVPN, back to the installation guide.
+
+When you select WireGuard, you'll be shown the default WireGuard port, make sure it says its UDP number "51820", if it doesn't, change it to it. This number will be important later on when giving the VPN proper internet access.
+
+![test](https://imgur.com/V3V1f1y.png)
+
+After that, you'll be asked what DNS provider will the VPN be using. For this I selected OpenDNS since it's a free, trusted DNS provider, but you can select any of the other options if you already have a preferred provider. Then you'll be asked if clients will be using a public IP or DNS name to connect to your server. Since we already made a static IP address for our device, we'll be selecting the top option, but if your IP address was dynamic, then you would use the DNS entry and set up a dynamic DNS. You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this the VPN server keys will be generated and after that your Pi will restart multiple times.
+
 
 
