@@ -6,9 +6,11 @@ This Repo is to show the installation process I did to turn my Raspberry Pi 5 in
 
 - Raspberry Pi 5
 - Wireguard
-- OpenVPN
-- Linux
+- OpenDNS
+- Linux Ubuntu
 - PiVPN
+- Apple Airport Extreme
+- Tailscale (sort of)
 
 ## Instructional Guide
 The first step of this guide is pretty simple, you must first buy a Raspberry Pi. It's up to you if you want to get any of the additional upgrades (like a case or extra mini to HDMI cord). It's mandatory to have have 1 micro to HDMI cord, the power cord, and an SD card with around 16GB (the installation will not use all this space). I would recommend buying the complete bundle on Amazon for $100. Make sure the RAM is at least 8 GB. Make sure you also have a monitor, keyboard, mouse, and ethernet to set this up; it's essentially a micro-computer. And make sure you have easy access to your router, for this installation, I'll talk about what to do if you have an Apple router.
