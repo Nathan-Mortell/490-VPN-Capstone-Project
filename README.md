@@ -72,7 +72,28 @@ After that, you'll be asked what DNS provider will the VPN be using. For this I 
 
 ![test](https://imgur.com/6eJHlR8.png)
 
-You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this the VPN server keys will be generated and after that your Pi will restart multiple times.
+You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this, the VPN server keys will be generated and after that your Pi will restart multiple times. Once its done restarting, it's time to make some PiVPN accounts. Open the CMD termianal and type "pivpn -a". If you're prompted to enter the client IP from a range, skip this. You'll be prompted to enter a name, I recommend just giving it the name of the device. Do this process for every device you want to connect; do not use the same account on multiple devices. 
 
+![test](https://imgur.com/d3N7kFc.png)
 
+If you want to see all current accounts, do "pivpn -c" and if you want to remove any, do "pivpn -r accountnamehere". If you want to make a backup of all your accounts in case of a crash, type "pivpn -bk". From there, it'll tell you where the backup has been saved and an instructional guide on how to migrate it.
 
+![test](https://imgur.com/1hyf8M1.png)
+
+## Enabling internet connection on Apple AirPort Extreme
+
+Open your Macbook again and go to the Finder App, and type in AirPort Utility. Click on the router again and then edit at the lower right. After that, go to the network tab, then under Port Settings, and select the + icon. From there type "Personal Web Sharing" in the description, this will autofill the Public and Private TCP Ports. After that, reuse the WireGuard UDP number 51820 for both the private and public UDP ports. And last enter the PI's IP address for the Private IP. Click save and update, this will once again restart your router and enable the changes. 
+
+##
+
+When it comes to connecting mobile devices to your PiVPN we'll need to use the WireGuard app. Once you have it installed, go back to your PiVPN and in the CMD terminal we'll generate a qr code to scan, type "pivpn -qr" and you'll be prompted to enter the name of the client to show, enter the name for the mobile account you made and then a qr code will be generated. Back to your phone, select add a tunnel and create from QR code (make sure to enable camera access to the WireGuard app). Once you scan the qr code with the WireGuard app, name it and it'll appear as a toggable option in the app. To make sure the connection is stable, download an app that allows you to ping IP addresses, I found one simply called Ping. From there ping the IP address of the Pi and the gateway IP, an example of a successful device ping is below.
+
+![test](https://imgur.com/ypt4Nxe.png)
+
+For connecting the PiVPN to your desktop, I found this to be the simplest method. Download the WireGuard client for Windows and or Apple. Once it's installed, open it, and you'll see the option to import tunnels from a file. Since the files are generated on the Pi, we'll be using Google Drive to move the files from the Pi to your device. There will be a folder in your Pi called configs, and in there will be a .conf file for each account made. Open Google Drive on your Pi VPN by going to the web browser in the bottom left. Once in Google Drive select new and File upload. From there select the .conf file and it'll be uploaded to the drive. Go back to your device and open Google Drive on there, and download the .conf file and use that as the import tunnel from the file. A good way to check to see if the VPN is enable is to go to the website What Is My IP? Before you enable your VPN run the website to see what your current IP is. Now connect to the VPN and refresh the page and do it again, if the IP address is changed, then it's successfully connected. 
+
+## Troubleshooting
+
+If you're having issues with connecting to the internet when on the VPN, the first thing to check is your Apple router. Go through the DHCP reservation and enabling internet connection steps again to make sure you filled out each section correctly. If you are still having internet issues, go to your Pi CMD terminal and type "pivpn -d" to begin the debugging procedure. If the process ever stops and prompts you to fix something, type Y. After the debugging is complete, type "sudo reboot" to reboot the Pi so the changes take effect.
+
+##
