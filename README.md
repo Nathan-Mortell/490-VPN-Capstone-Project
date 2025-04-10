@@ -23,16 +23,24 @@ After the Pi is done booting up you'll be prompted to log in with your password,
 
 ![test](https://imgur.com/7eDt5cZ.png)
 
-Now go to the bottom CMD terminal icon and once it's open were gonna run an update command to make sure the device is up to date before we being installing the VPN. Run the command "sudo apt update && sudo apt upgrade -y" sudo is for giving the command administration permission, and this will then update your Pi.
+Now go to the bottom CMD terminal icon and once it's open were gonna run an update command to make sure the device is up to date before we being installing the VPN. Run the command 
+```sh
+sudo apt update && sudo apt upgrade -y
+```
+sudo is for giving the command administration permission, and this will then update your Pi.
 
 ## Installing and AD blocker on your IP VPN (Optional and Maybe works)
 
-This step is something I intended on doing. When I finished my capstone project I wanted to go back and make it so I could make a block list of ad domains. But I soon realized that this step should've been done even before installing the PiVPN on my Pi. What I found to be the best way of blocking ads is through a WireGuard based VPN protocol called Tailscale. It allows you to connect all of your device like WireGuard and lets you pick a DNS server to use, and its free. The first step to install it on your Pi, open the CMD terminal and type 
+This step is something I intended on doing. When I finished my capstone project I wanted to go back and make it so I could make a block list of ad domains. But I soon realized that this step should've been done even before installing the PiVPN on my Pi. What I found to be the best way of blocking ads is through a WireGuard based VPN protocol called Tailscale. It allows you to connect all of your device like WireGuard and lets you pick a DNS server to use, and its free. The first step to install it on your Pi, open the CMD terminal and type: 
 ```sh
 curl -fsSL https://tailscale.com/install.sh | sh
 ```
 
-After the process is complete, run the "tailscale up --accept-dns=false" command. The reason for running this command is since Pi-Hole uses DNS servers configured within Linux as its upstream servers, where it will send DNS queries that it cannot answer on its own. Since we're going to make the Pi-Hole be our DNS server, we don't want Pi-Hole trying to use itself as its own upstream. After that, install tailscale on your other devices with the link here https://tailscale.com/download . After that you will set up your Pi as your DNS server via Tailscales admin console. You can find your Pi's Tailscale IP address from the machines page of the admin console. Go to the Nameservers section of Tailscale and select add nameserver, type in the IP address and then enable Overide DNS servers. After that you'll need to disable the key expiry. Go the machines page of the admin console again and then click disable key expiry on your Pi.
+After the process is complete, run the following command: 
+```sh
+tailscale up --accept-dns=false
+```
+The reason for running this command is since Pi-Hole uses DNS servers configured within Linux as its upstream servers, where it will send DNS queries that it cannot answer on its own. Since we're going to make the Pi-Hole be our DNS server, we don't want Pi-Hole trying to use itself as its own upstream. After that, install tailscale on your other devices with the link here https://tailscale.com/download . After that you will set up your Pi as your DNS server via Tailscales admin console. You can find your Pi's Tailscale IP address from the machines page of the admin console. Go to the Nameservers section of Tailscale and select add nameserver, type in the IP address and then enable Overide DNS servers. After that you'll need to disable the key expiry. Go the machines page of the admin console again and then click disable key expiry on your Pi.
 
 ##
 
@@ -46,7 +54,11 @@ Once you get your Macbook open the Finder App and type in AirPort Utility. You t
 
 ##
 
-The next step is to now begin installing PiVPN. Open the CMD terminal icon again and type "curl -L https://install.pivpn.io | bash." This is taken from the PiVPN website and will begin the installation procedure and open the installation wizard shown below. 
+The next step is to now begin installing PiVPN. Open the CMD terminal icon again and type:
+```sh
+curl -L https://install.pivpn.io | bash
+```
+This is taken from the PiVPN website and will begin the installation procedure and open the installation wizard shown below. 
 
 ![test](https://imgur.com/SDX7vcQ.png)
 
@@ -85,11 +97,27 @@ After that, you'll be asked what DNS provider will the VPN be using. For this I 
 
 ![test](https://imgur.com/6eJHlR8.png)
 
-You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this, the VPN server keys will be generated and after that your Pi will restart multiple times. Once its done restarting, it's time to make some PiVPN accounts. Open the CMD termianal and type "pivpn -a". If you're prompted to enter the client IP from a range, skip this. You'll be prompted to enter a name, I recommend just giving it the name of the device. Do this process for every device you want to connect; do not use the same account on multiple devices. 
+You'll be asked if you want to enable unattended upgrades of security patches to your server. Do select yes since this will keep your PiVPN secure. After this, the VPN server keys will be generated and after that your Pi will restart multiple times. Once its done restarting, it's time to make some PiVPN accounts. Open the CMD termianal and type:
+```sh
+pivpn -a
+```
+If you're prompted to enter the client IP from a range, skip this. You'll be prompted to enter a name, I recommend just giving it the name of the device. Do this process for every device you want to connect; do not use the same account on multiple devices. 
 
 ![test](https://imgur.com/d3N7kFc.png)
 
-If you want to see all current accounts, do "pivpn -c" and if you want to remove any, do "pivpn -r accountnamehere". If you want to make a backup of all your accounts in case of a crash, type "pivpn -bk". From there, it'll tell you where the backup has been saved and an instructional guide on how to migrate it.
+If you want to see all current accounts, do 
+```sh
+pivpn -c
+``` 
+and if you want to remove any, do 
+```sh
+pivpn -r accountnamehere
+```
+If you want to make a backup of all your accounts in case of a crash, type: 
+```sh
+pivpn -bk
+```
+From there, it'll tell you where the backup has been saved and an instructional guide on how to migrate it.
 
 ![test](https://imgur.com/1hyf8M1.png)
 
@@ -99,7 +127,11 @@ Open your Macbook again and go to the Finder App, and type in AirPort Utility. C
 
 ##
 
-When it comes to connecting mobile devices to your PiVPN we'll need to use the WireGuard app. Once you have it installed, go back to your PiVPN and in the CMD terminal we'll generate a qr code to scan, type "pivpn -qr" and you'll be prompted to enter the name of the client to show, enter the name for the mobile account you made and then a qr code will be generated. Back to your phone, select add a tunnel and create from QR code (make sure to enable camera access to the WireGuard app). Once you scan the qr code with the WireGuard app, name it and it'll appear as a toggable option in the app. To make sure the connection is stable, download an app that allows you to ping IP addresses, I found one simply called Ping. From there ping the IP address of the Pi and the gateway IP, an example of a successful device ping is below.
+When it comes to connecting mobile devices to your PiVPN we'll need to use the WireGuard app. Once you have it installed, go back to your PiVPN and in the CMD terminal we'll generate a qr code to scan, type: 
+```sh
+pivpn -qr
+```
+and you'll be prompted to enter the name of the client to show, enter the name for the mobile account you made and then a qr code will be generated. Back to your phone, select add a tunnel and create from QR code (make sure to enable camera access to the WireGuard app). Once you scan the qr code with the WireGuard app, name it and it'll appear as a toggable option in the app. To make sure the connection is stable, download an app that allows you to ping IP addresses, I found one simply called Ping. From there ping the IP address of the Pi and the gateway IP, an example of a successful device ping is below.
 
 ![test](https://imgur.com/ypt4Nxe.png)
 
@@ -107,6 +139,14 @@ For connecting the PiVPN to your desktop, I found this to be the simplest method
 
 ## Troubleshooting
 
-If you're having issues with connecting to the internet when on the VPN, the first thing to check is your Apple router. Go through the DHCP reservation and enabling internet connection steps again to make sure you filled out each section correctly. If you are still having internet issues, go to your Pi CMD terminal and type "pivpn -d" to begin the debugging procedure. If the process ever stops and prompts you to fix something, type Y. After the debugging is complete, type "sudo reboot" to reboot the Pi so the changes take effect.
+If you're having issues with connecting to the internet when on the VPN, the first thing to check is your Apple router. Go through the DHCP reservation and enabling internet connection steps again to make sure you filled out each section correctly. If you are still having internet issues, go to your Pi CMD terminal and type 
+```sh
+pivpn -d
+```
+to begin the debugging procedure. If the process ever stops and prompts you to fix something, type Y. After the debugging is complete, type 
+```sh
+sudo reboot
+```
+to reboot the Pi so the changes take effect.
 
 ##
